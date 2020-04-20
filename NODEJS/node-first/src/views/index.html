@@ -18,6 +18,12 @@
             </div>
         </header>
     </div>
+    <div style="background-color: red; height: 200px;">
+        <% carros.forEach(function(carr) { %>
+            <div> <%- carr._id %> </div>
+        
+        <% }) %>
+    </div>
     <%- include('partials/footer.html') %>
 </body>
 

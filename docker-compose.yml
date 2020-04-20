@@ -21,6 +21,13 @@ services:
         ports:
            - ${PORT_NODEJS}:4000
         container_name: nodejs_cnt
+        links:
+            - mongo_img:mongo_img
+        environment:
+            MONGO_DB_NAME: "db_subasta"
+            MONGODB_URI: "mongodb://mongo_cnt:27018"
+            PORT: 27018
+        
         command: npm start
 
 

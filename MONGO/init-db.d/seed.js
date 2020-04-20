@@ -1,19 +1,49 @@
 
-db.createCollection('tablitas')
-db.tablitas.insertMany([
+db.createCollection('vehiculo')
+db.vehiculo.insertMany([
   {
-    curso: 'SA',
-    estudiante: '201314733',
-    nombre: 'Alan Guzman'
+    estado: 0,
+    tipo: 0,
+    marca: 0,
+    linea: 0,
+    modelo: 0,
+    placa: 'P123QWE',
+    color: 'rojo',
+    arranca: true,
+    camina: true,
+    falla_mecanica: false,
+    garantia_inspeccion: false,
+    inundado: false,
+    colision: true
   },
   {
-    curso: 'SA',
-    estudiante: '201314321',
-    nombre: 'Juan Perez'
+    estado: 0,
+    tipo: 0,
+    marca: 0,
+    linea: 0,
+    modelo: 0,
+    placa: 'P456ASD',
+    color: 'azul',
+    arranca: true,
+    camina: true,
+    falla_mecanica: false,
+    garantia_inspeccion: false,
+    inundado: false,
+    colision: true
   },
   {
-    curso: 'Sopes2',
-    estudiante: '201315666',
-    nombre: 'Pedro Simon'
+    estado: 0,
+    tipo: 0,
+    marca: 0,
+    linea: 0,
+    modelo: 0,
+    placa: 'P789ZXC',
+    color: 'amarillo',
+    arranca: true,
+    camina: true,
+    falla_mecanica: false,
+    garantia_inspeccion: false,
+    inundado: false,
+    colision: true
   }
 ])
