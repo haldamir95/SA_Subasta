@@ -18,9 +18,9 @@
             </div>
         </header>
     </div>
-    <div style="background-color: red; height: 200px;">
+    <div">
         <% carros.forEach(function(carr) { %>
-            <div> <%- carr._id %> </div>
+            <div> <p>ID: <%- carr._id %>    PLACA: <%- carr.placa %>    COLOR: <%- carr.color %></p></div>
         
         <% }) %>
     </div>
