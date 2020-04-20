@@ -8,7 +8,7 @@ app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'ejs')
 
 //routes
-app.use(require('./routes/index'));
+app.use(require('./routes/index.js'));
 
 //static files 
 app.use(express.static(path.join(__dirname, 'public')));

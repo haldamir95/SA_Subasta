@@ -1,0 +1,30 @@
+version: "3.4"
+
+services:  
+
+    mongo_img:
+        build: ./MONGO/
+        command: mongod --port 27018
+        environment:
+            MONGO_INITDB_DATABASE: "db_subasta"
+        ports:
+            - ${PORT_MONGO}:27018
+        container_name: mongo_cnt
+        networks:
+            - backend    
+            
+            
+    nodejs_img:
+        networks: 
+            - backend
+        build: ./NODEJS/
+        ports:
+           - ${PORT_NODEJS}:4000
+        container_name: nodejs_cnt
+        command: npm start
+
+
+
+networks:
+    backend:
+        driver: bridge
