@@ -47,3 +47,19 @@ db.vehiculo.insertMany([
     colision: true
   }
 ])
+
+
+
+
+
+db.createCollection('usuario')
+db.usuario.insertMany([
+  {
+    email: 'haldamir.95@gmail.com',
+    password: 123456
+  },
+  {
+    email: 'pedro@gmail.com',
+    password: 123456
+  }
+])

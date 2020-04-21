@@ -9,14 +9,14 @@ router.get('/', (req,res) => {
 router.post('/login', (req,res) => {
     console.log(req.body)
     //(URL, metodo(POST o GET), Body(JSON))                                        .then es la respuesta 
-    fetchQuery('http://127.0.0.1:4000/login', 'POST', req.body).then(res => {
-      if (res.success) {
-        console.log('Datos Enviados')
+    fetchQuery('http://127.0.0.1:4000/login', 'POST', req.body).then(res_be => {
+      if (res_be.success) {
+        res.render('subasta.html',{ title: 'Subasta Online'});
       } else {
         console.log('res not success')
       }
     })
-    res.render('subasta.html',{ title: 'Subasta Online'});
+    
 });
 
 
