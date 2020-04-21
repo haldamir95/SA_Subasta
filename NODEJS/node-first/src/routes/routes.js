@@ -1,11 +1,13 @@
-const mongodb = require('../db')
-const express = require('express')
+const mongodb = require('../db');
+const express = require('express');
 const router = express.Router();
 
 
 const init = async () => {
     await mongodb.connect() // this line waits until db connection established
 }
+
+init()
 
 router.get('/', (req,res) => {
     mongodb.db.collection('vehiculo').find({}).toArray((err, data) => {
@@ -15,7 +17,7 @@ router.get('/', (req,res) => {
     })
 });
 
-init()
+
 
 router.get('/contact', (req,res) => {
     res.render('contact.html',{ title: 'Contact Page', carros:data});

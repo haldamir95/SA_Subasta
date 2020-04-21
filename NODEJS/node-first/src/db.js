@@ -12,12 +12,15 @@ const MONGO_OPTIONS = {
 class Connection {
   constructor (uri, options, name) {
     this.db = null
-    this.uri = uri
     this.options = options
-    this.name = name
+    
+    //For Dockerize run
+    //this.uri = uri
+    //this.name = name
+
     //For local run
-    // this.uri = 'mongodb://127.0.0.1:27018'
-    // this.name = 'db_subasta'
+    this.uri = 'mongodb://127.0.0.1:27018'
+    this.name = 'db_subasta'
   }
 
   connect () {
