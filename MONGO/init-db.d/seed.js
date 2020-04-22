@@ -4,9 +4,9 @@ db.vehiculo.insertMany([
   {
     estado: 0,
     tipo: 0,
-    marca: 0,
-    linea: 0,
-    modelo: 0,
+    marca: '',
+    linea: '',
+    modelo: '',
     placa: 'P123QWE',
     color: 'rojo',
     arranca: true,
@@ -14,14 +14,15 @@ db.vehiculo.insertMany([
     falla_mecanica: false,
     garantia_inspeccion: false,
     inundado: false,
-    colision: true
+    colision: true,
+    imagen: 'upload/tech_menu_01.jpg'
   },
   {
     estado: 0,
     tipo: 0,
-    marca: 0,
-    linea: 0,
-    modelo: 0,
+    marca: '',
+    linea: '',
+    modelo: '',
     placa: 'P456ASD',
     color: 'azul',
     arranca: true,
@@ -29,14 +30,15 @@ db.vehiculo.insertMany([
     falla_mecanica: false,
     garantia_inspeccion: false,
     inundado: false,
-    colision: true
+    colision: true,
+    imagen: 'upload/tech_menu_01.jpg'
   },
   {
     estado: 0,
     tipo: 0,
-    marca: 0,
-    linea: 0,
-    modelo: 0,
+    marca: '',
+    linea: '',
+    modelo: '',
     placa: 'P789ZXC',
     color: 'amarillo',
     arranca: true,
@@ -44,7 +46,8 @@ db.vehiculo.insertMany([
     falla_mecanica: false,
     garantia_inspeccion: false,
     inundado: false,
-    colision: true
+    colision: true,
+    imagen: 'upload/tech_menu_01.jpg'
   }
 ])
 
