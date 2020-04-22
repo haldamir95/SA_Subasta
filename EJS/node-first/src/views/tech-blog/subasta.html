@@ -61,35 +61,66 @@
                             <div class="blog-grid-system">
                                 <div class="row">
                                     
+                                    
+                                    <% if(usr==null || usr==''){ %>
+                                        <% carros.forEach(function(carr) { %>
+                                            <div class="col-md-6">
+                                                <div class="blog-box">
+    
+                                                    <!-- IMAGEN -->
+                                                    <div class="post-media">
+                                                        <a href="#" title="">
+                                                            <img src="<%- carr.imagen %>" alt="" class="img-fluid animated bounceIn">
+                                                        </a>
+                                                    </div>
+    
+                                                    <!-- DATA -->
+                                                    <div class="blog-meta big-meta"> <br>
+                                                        <button type="button" class="btn btn-success" onclick="Mensaje()"> PUSH +50 </button><br><br>
+                                                        <!-- MARCA LINEA MODELO -->
+                                                        <h4><a href="#" title="">ID: <%- carr._id %></a></h4>
+                                                        <!-- INFORMACION EXTRA -->
+                                                        <p>
+                                                            ID: <%- carr._id %> <br>
+                                                            PLACA: <%- carr.marca %> <br>
+                                                            COLOR: <%- carr.imagen %>
+                                                        </p>
+                                                        <br>
+                                                    </div><!-- end meta -->
+                                                </div><!-- end blog-box -->
+                                            </div><!-- end col -->
+                                        <% }) %>
+                                    <% }else{ %>
+                                        <% carros.forEach(function(carr) { %>
+                                            <div class="col-md-6">
+                                                <div class="blog-box">
+    
+                                                    <!-- IMAGEN -->
+                                                    <div class="post-media">
+                                                        <a href="#" title="">
+                                                            <img src="<%- carr.imagen %>" alt="" class="img-fluid animated bounceIn">
+                                                        </a>
+                                                    </div>
+    
+                                                    <!-- DATA -->
+                                                    <div class="blog-meta big-meta"> <br>
+                                                        <button type="button" class="btn btn-success" onclick="Pujar()"> PUSH +50 </button><br><br>
+                                                        <!-- MARCA LINEA MODELO -->
+                                                        <h4><a href="#" title="">ID: <%- carr._id %></a></h4>
+                                                        <!-- INFORMACION EXTRA -->
+                                                        <p>
+                                                            ID: <%- carr._id %> <br>
+                                                            PLACA: <%- carr.marca %> <br>
+                                                            COLOR: <%- carr.imagen %>
+                                                        </p>
+                                                        <br>
+                                                    </div><!-- end meta -->
+                                                </div><!-- end blog-box -->
+                                            </div><!-- end col -->
+                                        <% }) %>
+                                    <% } %>
 
-
-                                    <% carros.forEach(function(carr) { %>
-                                        <div class="col-md-6">
-                                            <div class="blog-box">
-
-                                                <!-- IMAGEN -->
-                                                <div class="post-media">
-                                                    <a href="tech-single.html" title="">
-                                                        <img src="<%- carr.imagen %>" alt="" class="img-fluid">
-                                                    </a>
-                                                </div>
-
-                                                <!-- DATA -->
-                                                <div class="blog-meta big-meta"> <br>
-                                                    <button type="button" class="btn btn-success"> PUSH +50 </button><br><br>
-                                                    <!-- MARCA LINEA MODELO -->
-                                                    <h4><a href="tech-single.html" title="">ID: <%- carr._id %></a></h4>
-                                                    <!-- INFORMACION EXTRA -->
-                                                    <p>
-                                                        ID: <%- carr._id %> <br>
-                                                        PLACA: <%- carr.marca %> <br>
-                                                        COLOR: <%- carr.imagen %>
-                                                    </p>
-                                                    <br>
-                                                </div><!-- end meta -->
-                                            </div><!-- end blog-box -->
-                                        </div><!-- end col -->
-                                    <% }) %>
+                                    
                                     
                                 </div>
                             </div>
@@ -115,6 +146,15 @@
     <script src="js/tether.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/custom.js"></script>
+    <script>
+        function Mensaje(){
+            alert('Autenticate para poder hacer pujas')
+        }
+
+        function Pujar(){
+            alert('Puja Realizada')
+        }
+    </script>
 
 </body>
 </html>
