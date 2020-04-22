@@ -10,29 +10,66 @@ const init = async () => {
 init()
 
 router.get('/', (req,res) => {
-    mongodb.db.collection('vehiculo').find({}).toArray((err, data) => {
-        if (err != null) { res.send([]) }
-        console.log(data);
-        res.render('subasta.html',{ title: 'Subasta Online', carros:data});
-    })
-});
-
-
-router.post('/login', (req,res) => {
-    console.log(req.body)
-    mongodb.db.collection('usuario').find({email: req.body.email, password: Number(req.body.password)}).toArray((err, data) => {
-        if (err != null){ 
-            res.send([]) 
+    mongodb.db.collection('vehiculo').find().toArray((err, vehiculo) =>{
+        if(vehiculo != null){
+            res.send({success: true, arrVehiculos: vehiculo})
         }else{
-            console.log('LO ENCONTRO')
-            console.log(data);
-            res.send({success: true, id: data._id})
-            //res.render('subasta.html',{ title: 'Subasta Online', carros:data});
-        }
-        
+            res.send([])
+            console.log(err)
+        }        
     })
-    //console.log(req.body)
 });
+
+
+
+
+/*  
+    Al agregar el ASYNC a la funcion se le da la propiedad a las funciones
+    de volverse sincronas agregando el AWAIT
+*/
+router.post('/login', async (req,res) => {
+    console.log('Recibiendo => ', req.body)
+    //Consultando Usuario
+    var consulta = {email: req.body.email, password: Number(req.body.password)}
+    try {
+        var usuario = await mongodb.db.collection('usuario').find(consulta).toArray()
+        var vehiculo = await mongodb.db.collection('vehiculo').find().toArray()
+        if(usuario != null){
+            console.log('LOGEADO\n',usuario[0],'\n')
+            res.send({success: true, user: usuario[0], arrVehiculos: vehiculo})
+        }
+    } catch (error) {
+        console.log(error)
+        res.send([])
+    }
+});
+
+/*
+    Si no se agrega el ASYNC todo el endopint y sus funciones son 
+    asincronas
+
+    
+    router.post('/login', (req,res) => {
+        console.log('Recibiendo => ', req.body)
+        //Consultando Usuario
+        var consulta = {email: req.body.email, password: Number(req.body.password)}
+        mongodb.db.collection('usuario').find(consulta).toArray((err, usuario) => {
+            if(usuario != null){
+                console.log('LO ENCONTRO')
+                //Consultando Vehiculos
+                mongodb.db.collection('vehiculo').find().toArray((err, vehiculo) =>{
+                    res.send({success: true, id: usuario._id, vehiculos: vehiculo})
+                })
+            }else{
+                res.send([]) 
+            }
+        })
+    });
+
+*/
+
+
+
 
 
 

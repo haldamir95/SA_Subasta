@@ -11,12 +11,20 @@
                     <a class="nav-link" href="/"><i class="fas fa-home"></i> Home </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#"><i class="fas fa-car"></i> Subasta</a>
+                    <a class="nav-link" href="#"><i class="fas fa-car"></i> Subasta </a>
                 </li>
+                <% if(data==null || data==''){ %>
                 <li class="nav-item">
-                    <a class="nav-link" href="/contact"><i class="fas fa-envelope"></i> About</a>
+                    <a class="nav-link" href="/logear"><i class="fas fa-user"></i> Login </a>
                 </li>
-
+                <% }else{ %>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="fas fa-user"></i> <%- data %></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout"><i class="fas fa-sign-out-alt"></i> Salir </a>
+                    </li>
+                <% } %>
             </ul>
         </div>
     </div>

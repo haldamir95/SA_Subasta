@@ -10,7 +10,7 @@
 
 <body>
 
-    <%- include('partials/navigation.html') %>
+    <%- include('partials/navigation.html', {data: usr}) %>
     <div class="container">
         <header class="row">
             <div class="col-lg-12 text-center">
@@ -18,8 +18,12 @@
             </div>
         </header>
     </div>
+    <div">
+        <% carros.forEach(function(carr) { %>
+            <div> <p>ID: <%- carr._id %>    PLACA: <%- carr.placa %>    COLOR: <%- carr.color %></p></div>
+        <% }) %>
+    </div>
     
-    <%- include('partials/footer.html') %>
 </body>
 
 </html>
