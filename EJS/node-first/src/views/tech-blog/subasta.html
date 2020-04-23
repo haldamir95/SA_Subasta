@@ -62,59 +62,162 @@
                                 <div class="row">
                                     
                                     
-                                    <% if(usr==null || usr==''){ %>
+                                    <% if(usr==null || usr==''){ %><!-- **************************************************************** NO LOGEADO -->
+
+
                                         <% carros.forEach(function(carr) { %>
                                             <div class="col-md-6">
                                                 <div class="blog-box">
     
-                                                    <!-- IMAGEN -->
-                                                    <div class="post-media">
-                                                        <a href="#" title="">
-                                                            <img src="<%- carr.imagen %>" alt="" class="img-fluid animated bounceIn">
-                                                        </a>
-                                                    </div>
-    
-                                                    <!-- DATA -->
-                                                    <div class="blog-meta big-meta"> <br>
-                                                        <button type="button" class="btn btn-success" onclick="Mensaje()"> PUSH +50 </button><br><br>
-                                                        <!-- MARCA LINEA MODELO -->
-                                                        <h4><a href="#" title="">ID: <%- carr._id %></a></h4>
-                                                        <!-- INFORMACION EXTRA -->
-                                                        <p>
-                                                            ID: <%- carr._id %> <br>
-                                                            PLACA: <%- carr.marca %> <br>
-                                                            COLOR: <%- carr.imagen %>
-                                                        </p>
-                                                        <br>
-                                                    </div><!-- end meta -->
-                                                </div><!-- end blog-box -->
-                                            </div><!-- end col -->
+
+                                                    <% if(carr.estado==3){ %><!-- **************************************** SI ES SUBASTABLE -->
+
+
+                                                        <!-- IMAGEN -->
+                                                        <div class="post-media">
+                                                            <a href="#" title="">
+                                                                <img src="<%- carr.imagen %>" alt="" class="img-fluid animated bounceIn">
+                                                            </a>
+                                                        </div>
+        
+
+                                                        <!-- DATA -->
+                                                        <div class="blog-meta big-meta"> <br>
+
+
+                                                            <!-- BOTON -->
+                                                            <button type="button" class="btn btn-success" onclick="Mensaje()">
+                                                                <i class="fas fa-thumbs-up"></i>+1000 
+                                                            </button>
+                                                            <button type="button" class="btn btn-success" onclick="Mensaje()">
+                                                                <i class="far fa-hand-point-up"></i>+500
+                                                            </button><br><br><br><br>
+
+
+                                                            <!-- TITULO -->
+                                                            <h3><a href="#" title=""> <%- carr.id  %> - <%- carr.marca  %> <%- carr.linea  %> <%- carr.modelo  %> <br></a></h3>
+
+
+                                                            <!-- PRECIO -->
+                                                            <h4><p> VALOR ACTUAL: Q. <%- carr.valor_adjudicacion %>
+                                                            </p></h4>
+
+
+                                                            <!-- INFORMACION EXTRA -->
+                                                            <h6><p> 
+                                                                Vehiculo: <%- carr.marca  %> <%- carr.linea  %> <%- carr.modelo  %> <br>
+                                                                PLACA: <%- carr.placa %> <br>
+                                                                COLOR: <%- carr.color %> <br>
+                                                                <%var arr = carr.arranca == true ? 'Si' : 'No' %>
+                                                                ARRANCA: <%- arr %> <br>
+                                                                <%var cam = carr.camina == true ? 'Si' : 'No' %>
+                                                                Camina: <%- cam %> <br>
+                                                                <%var falla = carr.falla_mecanica == true ? 'Si' : 'No' %>
+                                                                FALLA MECANICA: <%- falla %> <br>
+                                                                <%var gar = carr.garantica_inspeccion == true ? 'Si' : 'No' %>
+                                                                GARANTIA DE INSPECCION: <%- gar %> <br>
+                                                                <%var inun = carr.inundado == true ? 'Si' : 'No' %>
+                                                                INUNDADO: <%- inun %> <br>
+                                                                <%var col = carr.colision == true ? 'Si' : 'No' %>
+                                                                COLICION: <%- col %>
+                                                            </p></h6>
+
+
+                                                            <br>
+                                                        </div>
+                                                    <% } %>
+                                                </div>
+                                            </div>
                                         <% }) %>
-                                    <% }else{ %>
+
+
+
+                                    <% }else{ %><!-- ************************************************************************************** LOGEADO -->
+
+
+
                                         <% carros.forEach(function(carr) { %>
                                             <div class="col-md-6">
                                                 <div class="blog-box">
+
+
+                                                    <% if(carr.estado==3){ %><!-- **************************************** SI ES SUBASTABLE -->
     
-                                                    <!-- IMAGEN -->
-                                                    <div class="post-media">
-                                                        <a href="#" title="">
-                                                            <img src="<%- carr.imagen %>" alt="" class="img-fluid animated bounceIn">
-                                                        </a>
-                                                    </div>
-    
-                                                    <!-- DATA -->
-                                                    <div class="blog-meta big-meta"> <br>
-                                                        <button type="button" class="btn btn-success" onclick="Pujar()"> PUSH +50 </button><br><br>
-                                                        <!-- MARCA LINEA MODELO -->
-                                                        <h4><a href="#" title="">ID: <%- carr._id %></a></h4>
-                                                        <!-- INFORMACION EXTRA -->
-                                                        <p>
-                                                            ID: <%- carr._id %> <br>
-                                                            PLACA: <%- carr.marca %> <br>
-                                                            COLOR: <%- carr.imagen %>
-                                                        </p>
-                                                        <br>
-                                                    </div><!-- end meta -->
+
+                                                        <!-- IMAGEN -->
+                                                        <div class="post-media">
+                                                            <a href="#" title="">
+                                                                <img src="<%- carr.imagen %>" alt="" class="img-fluid animated bounceIn">
+                                                            </a>
+                                                        </div>
+        
+
+                                                        <!-- DATA -->
+                                                        <div class="blog-meta big-meta"> <br>
+
+
+                                                            <!-- BOTON -->
+                                                            <div class="container">
+                                                                <div class="row">
+                                                                    <div class="col-sm-3"> 
+                                                                        <form action="/puja" method="POST">
+                                                                            <input type="hidden" name="id" value="<%- carr.id  %>">
+                                                                            <input type="hidden" name="email" value="<%- usr  %>">
+                                                                            <input type="hidden" name="tipo" value="C">
+                                                                            <button type="submit" class="btn btn-success">
+                                                                                <i class="fas fa-thumbs-up"></i>+1000
+                                                                            </button>
+                                                                        </form>
+                                                                    </div>
+                                                                    <div class="col-sm-3">
+                                                                        <form action="/puja" method="POST">
+                                                                            <input type="hidden" name="id" value="<%- carr.id  %>">
+                                                                            <input type="hidden" name="email" value="<%- usr  %>">
+                                                                            <input type="hidden" name="tipo" value="M">
+                                                                            <button type="submit" class="btn btn-success"><!-- onclick="location.href='/puja?t=M&v=<%- carr.id  %></button>'" -->
+                                                                                <i class="far fa-hand-point-up"></i>+500
+                                                                            </button>
+                                                                        </form>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <br>
+
+
+                                                            <!-- TITULO -->
+                                                            <h3><a href="#" title=""> <%- carr.id  %> - <%- carr.marca  %> <%- carr.linea  %> <%- carr.modelo  %> <br></a></h3>
+
+
+                                                            <!-- PRECIO Y AFILIADO-->
+                                                            <h4><p> VALOR ACTUAL: Q. <%- carr.valor_adjudicacion %>
+                                                            </p></h4>
+                                                            <h5><p> AFILIADO ADJUDICADO: <%- carr.afiliado_adjudicado %>
+                                                            </p></h5>
+
+                                                            <!-- INFORMACION EXTRA -->
+                                                            <h6><p> 
+                                                                Vehiculo: <%- carr.marca  %> <%- carr.linea  %> <%- carr.modelo  %> <br>
+                                                                PLACA: <%- carr.placa %> <br>
+                                                                COLOR: <%- carr.color %> <br>
+                                                                <%var arr = carr.arranca == true ? 'Si' : 'No' %>
+                                                                ARRANCA: <%- arr %> <br>
+                                                                <%var cam = carr.camina == true ? 'Si' : 'No' %>
+                                                                Camina: <%- cam %> <br>
+                                                                <%var falla = carr.falla_mecanica == true ? 'Si' : 'No' %>
+                                                                FALLA MECANICA: <%- falla %> <br>
+                                                                <%var gar = carr.garantica_inspeccion == true ? 'Si' : 'No' %>
+                                                                GARANTIA DE INSPECCION: <%- gar %> <br>
+                                                                <%var inun = carr.inundado == true ? 'Si' : 'No' %>
+                                                                INUNDADO: <%- inun %> <br>
+                                                                <%var col = carr.colision == true ? 'Si' : 'No' %>
+                                                                COLICION: <%- col %>
+                                                            </p></h6>
+
+
+                                                            <br>
+                                                        </div><!-- end meta -->
+
+                                                    <% } %>    
                                                 </div><!-- end blog-box -->
                                             </div><!-- end col -->
                                         <% }) %>
@@ -151,8 +254,15 @@
             alert('Autenticate para poder hacer pujas')
         }
 
-        function Pujar(){
-            alert('Puja Realizada')
+        function PujarC(){
+            var textdiv = document.getElementById("tipoo");
+            textdiv.value = 'C'
+            document.forms["hacer_puja_frm"].submit();
+        }
+        function PujarM(){
+            var textdiv = document.getElementById("tipoo");
+            textdiv.value = 'M'
+            document.forms["hacer_puja_frm"].submit();
         }
     </script>
 
