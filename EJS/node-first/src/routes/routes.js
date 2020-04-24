@@ -64,20 +64,20 @@ router.post('/puja', (req,res) => {
 
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------
-		
+	
 router.get('/Afiliado', async (req,res) => {
   req.session.sessUsr='';
   console.log(req.query)
-  
-
   var usuario = await fetchQuery(URL_SERVER+'/Afiliado?jwt='+req.query.jwt+'&codigo='+req.query.codigo+'&password='+req.query.password, 'GET').then()
   .catch(function (err) {
     console.log(err.status, err.statusText)
+    res.render('login.html',{ title: 'Subasta Online', message: err.status + ' ' + err.statusText});
   });
 
   var vehiculos = await fetchQuery(URL_SERVER+'/Vehiculo', 'GET').then()
   .catch(function (err) {
     console.log(err.status, err.statusText)
+    res.render('login.html',{ title: 'Subasta Online', message: err.status + ' ' + err.statusText});
   });
 
   if(usuario!=null){
@@ -93,8 +93,6 @@ router.get('/Afiliado', async (req,res) => {
       console.log('res not success')
     } 
   }
-  
-  
 });
 
 

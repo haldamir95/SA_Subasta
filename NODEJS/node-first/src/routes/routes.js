@@ -115,7 +115,7 @@ router.get('/Afiliado', async (req,res) => {
         var usuario = await mongodb.db.collection('usuario').find(consulta).toArray()
         //var vehiculo = await mongodb.db.collection('vehiculo').find().toArray()
         if(usuario != null){
-            res.status(200).send({
+            res.status(202).send({
                 status: 'OK',
                 message: 'La autenticacion es exitosa.',
                 codigo: usuario[0].email,
