@@ -20,12 +20,17 @@ router.get('/', (req,res) => {
     })
 });
 
+router.post('/prueba', async (req,res) => {
+
+    console.log(req.body)
+    res.send(req.body)
+    
+});
 /*  
     Al agregar el ASYNC a la funcion se le da la propiedad a las funciones
     de volverse sincronas agregando el AWAIT
 */
 router.post('/login', async (req,res) => {
-    //Consultando Usuario
     var consulta = {email: req.body.email, password: Number(req.body.password)}
     try {
         var usuario = await mongodb.db.collection('usuario').find(consulta).toArray()
@@ -38,7 +43,6 @@ router.post('/login', async (req,res) => {
         res.send([])
     }
 });
-
 /*
     Si no se agrega el ASYNC todo el endopint y sus funciones son 
     asincronas
@@ -85,13 +89,84 @@ router.post('/puja', async (req,res) => {
 
 
 
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+// Afiliado							
+// 	Tipo de request						
+// 		GET					
+// 	Parámetros						
+// 		jwt	      string	requerido	Token de autenticación		
+// 		codigo	  string	requerido	Código del afiliado		
+// 		password	string	requerido	Password del afiliado		
+// 	Respuesta						
+// 		Afiliado					
+// 			codigo	string			
+// 			nombre	string			
+// 			vigente	boolean			
+// 	Código de éxito						
+// 		200	OK				
+// 	Excepciones						
+// 		404	Not found	Si el código de afiliado no existe			
+// 		401	Unauthorized	Si la autenticación no es exitosa			
+// 		403	Forbidden	El JWT no es válido o no contiene el scope de este servicio	
+router.get('/Afiliado', async (req,res) => {
+    console.log('get Afiliado -> ',req.query)
+    var consulta = {email: req.query.codigo, password: Number(req.query.password)}
+    try {
+        var usuario = await mongodb.db.collection('usuario').find(consulta).toArray()
+        //var vehiculo = await mongodb.db.collection('vehiculo').find().toArray()
+        if(usuario != null){
+            res.status(200).send({
+                status: 'OK',
+                message: 'La autenticacion es exitosa.',
+                codigo: usuario[0].email,
+                nombre: usuario[0].email,
+                vigente: true
+              })
+        }
+    } catch (error) {
+        console.log(error)
+        res.send([])
+    }
+});
 
-
-
-
-
-
-
+// Vehiculo							
+// 	Tipo de request						
+// 		GET					
+// 	Parámetros						
+// 		jwt	string	requerido	Token de autenticación		
+// 		id	int	opcional	Id del vehículo		
+// 		placa	string	opcional	Placa		
+// 		subastable	boolean	opcional	Si solo se quiere buscar subastables		
+// 	Salida						
+// 		Arreglo de Vehículo					
+// 			id	int			
+// 			estado	int			
+// 			tipo	string			
+// 			marca	string			
+// 			linea	string			
+// 			modelo	string			
+// 			placa	string			
+// 			color	string			
+// 			arranca	boolean			
+// 			camina	boolean			
+// 			falla_mecanica	boolean			
+// 			garantia_inspeccion	boolean			
+// 			inundado	boolean			
+// 			colision	boolean			
+// 	Código de éxito						
+// 		200	OK				
+// 	Excepciones						
+// 		404	Not found	Si el id no existe			
+// 		403	Forbidden	El JWT no es válido o no contiene el scope de este servicio			
+router.get('/Vehiculo', async (req,res) => {
+    try {
+        var vehiculo = await mongodb.db.collection('vehiculo').find().toArray()
+            res.status(200).send(vehiculo)
+    } catch (error) {
+        console.log(error)
+        res.send([])
+    }
+});
 
 
 

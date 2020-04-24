@@ -11,6 +11,8 @@ npm i -G nodemon
 npm i body-parser
 #para poder usar variables de session
 npm install express-session --save
+#para enviar body en GET y POST
+npm install request
 
 
 
