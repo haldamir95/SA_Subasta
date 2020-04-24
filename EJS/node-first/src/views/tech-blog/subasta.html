@@ -50,9 +50,6 @@
     <%- include('../partials/navigation.html', {data: usr}) %>
     <br><br><br>
     <div id="wrapper">
-        
-
-
         <section class="section">
             <div class="container">
                 <div class="row">
@@ -160,7 +157,8 @@
                                                             <div class="container">
                                                                 <div class="row">
                                                                     <div class="col-sm-3"> 
-                                                                        <form action="/puja" method="POST">
+                                                                        <form action="/Vehiculoput" method="POST">
+                                                                            <input type="hidden" name="jwt" value="AsE445RdwERE">
                                                                             <input type="hidden" name="id" value="<%- carr.id  %>">
                                                                             <input type="hidden" name="email" value="<%- usr  %>">
                                                                             <input type="hidden" name="tipo" value="C">
@@ -170,7 +168,7 @@
                                                                         </form>
                                                                     </div>
                                                                     <div class="col-sm-3">
-                                                                        <form action="/puja" method="POST">
+                                                                        <form action="/Vehiculoput" method="POST">
                                                                             <input type="hidden" name="id" value="<%- carr.id  %>">
                                                                             <input type="hidden" name="email" value="<%- usr  %>">
                                                                             <input type="hidden" name="tipo" value="M">

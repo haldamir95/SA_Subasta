@@ -110,16 +110,16 @@ router.post('/puja', async (req,res) => {
 // 		403	Forbidden	El JWT no es válido o no contiene el scope de este servicio	
 router.get('/Afiliado', async (req,res) => {
     console.log('get Afiliado -> ',req.query)
-    var consulta = {email: req.query.codigo, password: Number(req.query.password)}
+    var consulta = {codigo: Number(req.query.codigo), password: req.query.password}
     try {
         var usuario = await mongodb.db.collection('usuario').find(consulta).toArray()
         //var vehiculo = await mongodb.db.collection('vehiculo').find().toArray()
         if(usuario != null){
-            res.status(202).send({
+            res.status(200).send({
                 status: 'OK',
                 message: 'La autenticacion es exitosa.',
-                codigo: usuario[0].email,
-                nombre: usuario[0].email,
+                codigo: usuario[0].codigo,
+                nombre: usuario[0].nombre,
                 vigente: true
               })
         }
@@ -159,14 +159,72 @@ router.get('/Afiliado', async (req,res) => {
 // 		404	Not found	Si el id no existe			
 // 		403	Forbidden	El JWT no es válido o no contiene el scope de este servicio			
 router.get('/Vehiculo', async (req,res) => {
+    console.log('GET Vehiculo -> ', req.query, '\n')
     try {
         var vehiculo = await mongodb.db.collection('vehiculo').find().toArray()
+            
             res.status(200).send(vehiculo)
     } catch (error) {
         console.log(error)
         res.send([])
     }
 });
+
+
+
+router.put('/Vehiculo', async (req,res) => {
+    var random = Math.round(Math.random() * 10,0 )
+    console.log('put Vehiculo -> ',req.body)
+    var consulta = { id: Number(req.body.id)};
+    var vehiculo = await mongodb.db.collection('vehiculo').find(consulta).toArray()
+    var cantidadNueva = Number(vehiculo[0].valor_adjudicacion) + Number(req.body.valor_adjudicacion);
+    var set = { $set: {afiliado_adjudicado: random, valor_adjudicacion: Number(cantidadNueva) } };
+    var actualizacion = await mongodb.db.collection('vehiculo').updateOne(consulta, set);
+    var vehiculos = await mongodb.db.collection('vehiculo').find({}).toArray();
+    if(vehiculos != null){
+        res.status(200).send(true)
+    }else{
+        res.send([])
+        console.log(err)
+    }  
+});
+
+
+
+
+router.post('/Afiliado', async (req,res) => {
+    //Generando Codigo e ID
+    var random = Math.round(Math.random() * 1000,0 )
+    var identificador = Math.round(Math.random() * 1000,0 )
+
+
+   //Generando Nuevo Usuario
+   var usuario = {
+       id: identificador,
+       codigo: random,
+       password: req.body.password,
+       nombre: req.body.nombre,
+       vigente: true
+   }
+
+
+   //Insertando Usuario
+   var insert = await mongodb.db.collection('usuario').insertOne(usuario);
+   if(insert!=null){
+       res.status(200).send(insert.ops[0]);
+   }
+
+});
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -2,33 +2,34 @@ const express = require('express');
 const request = require('request');
 const router = express.Router();
 const fetchQuery = require('../request-manager');
-const URL_SERVER = 'http://127.0.0.1:4000'
+const URL_OFICINA = 'http://127.0.0.1:4000'
+const URL_ASEGURADORA = 'http://127.0.0.1:4000'      //        'http://34.214.230.10:4000'
+const URL_TOKEN = 'http://3.94.79.29:8000'
 const app = express();
-
-
-router.post('/login', (req,res) => {
-  req.session.sessUsr='';
-  console.log(req.body)
-  fetchQuery(URL_SERVER+'/login', 'POST', req.body).then(res_be => {
-    if (res_be.success) {
-      req.session.sessUsr = res_be.user.email
-      res.render('./tech-blog/subasta.html',{ title: 'Subasta Online', carros:res_be.arrVehiculos, usr:req.session.sessUsr});
-    } else {
-      console.log('res not success')
-    }
-  })
-});
 
 
 
 router.get('/', (req,res) => {
-  fetchQuery(URL_SERVER, 'GET').then(res_be => {
-      if (res_be.success) {
-        res.render('./tech-blog/subasta.html',{ title: 'Subasta Online', carros:res_be.arrVehiculos, usr:req.session.sessUsr});
-      } else {
-        console.log('res_back_end not soccess')
-      }
-  })  
+    //Obteniendo Token
+    var body = {
+        client_id: 'giovannilopez', 
+        client_secret: 'miacceso123'
+    }
+    var token = await fetchQuery(URL_TOKEN+'/getToken/','POST', body).then()
+    .catch(function(err){
+        console.log(err.status, err.statusText)
+    });
+
+    fetchQuery(URL_ASEGURADORA+'/Vehiculo', 'GET').then(res_be => {
+        if (res_be!=null) {
+          res.render('./tech-blog/subasta.html',{ title: 'Subasta Online', carros:res_be, usr:req.session.sessUsr});
+        } else {
+          console.log('res_back_end not soccess')
+        }
+    }).catch(function (err) {
+      console.log(err.status, err.statusText)
+      res.render('./tech-blog/subasta.html',{ title: 'Subasta Online', carros:res_be, usr:req.session.sessUsr});
+    }); 
 });
 
 
@@ -39,25 +40,44 @@ router.get('/logear', (req,res) => {
 
 router.get('/logout', (req,res) => {
   req.session.sessUsr='';
-  fetchQuery(URL_SERVER, 'GET').then(res_be => {
-      if (res_be.success) {
-        res.render('./tech-blog/subasta.html',{ title: 'Subasta Online', carros:res_be.arrVehiculos, usr:req.session.sessUsr});
-      } else {
-        console.log('res_back_end not soccess')
-      }
-    })  
+  fetchQuery(URL_ASEGURADORA+'/Vehiculo', 'GET').then(res_be => {
+    if (res_be!=null) {
+      res.render('./tech-blog/subasta.html',{ title: 'Subasta Online', carros:res_be, usr:req.session.sessUsr});
+    } else {
+      console.log('res_back_end not soccess')
+    }
+  }).catch(function (err) {
+    console.log(err.status, err.statusText)
+    res.render('./tech-blog/subasta.html',{ title: 'Subasta Online', carros:res_be, usr:req.session.sessUsr});
+  });  
 });
 
  
-router.post('/puja', (req,res) => {
-  console.log(req.body)
-  fetchQuery(URL_SERVER+'/puja', 'POST', req.body).then(res_be => {
-      if (res_be.success) {
-        res.render('./tech-blog/subasta.html',{ title: 'Subasta Online', carros:res_be.arrVehiculos, usr:req.session.sessUsr});
-      } else {
-        console.log('res_back_end not soccess')
-      }
-    })
+router.post('/Vehiculoput', async (req,res) => {
+  var monto = req.body.tipo == 'C' ? 1000 : 500;
+  var data = {
+    jwt: req.body.jwt,
+    id: req.body.id,
+    estado: 3,
+    afiliado_adjudicado: req.session.sessUsr,
+    valor_adjudicacion: monto
+  }
+  console.log(data)
+  var actualizacion = await fetchQuery(URL_OFICINA+'/Vehiculo', 'PUT', data).then()
+  .catch(function (err) {
+      console.log(err.status, err.statusText)
+      res.render('./tech-blog/subasta.html',{ title: 'Subasta Online', carros:res_be, usr:req.session.sessUsr});
+    }); 
+
+  var vehiculos = await fetchQuery(URL_ASEGURADORA+'/Vehiculo', 'GET').then()
+  .catch(function (err) {
+    console.log(err.status, err.statusText)
+    res.render('login.html',{ title: 'Subasta Online', message: err.status + ' ' + err.statusText});
+  });
+
+  if(actualizacion){
+    res.render('./tech-blog/subasta.html',{ title: 'Subasta Online', carros:vehiculos, usr:req.session.sessUsr});
+  }
 });
 
 
@@ -68,13 +88,13 @@ router.post('/puja', (req,res) => {
 router.get('/Afiliado', async (req,res) => {
   req.session.sessUsr='';
   console.log(req.query)
-  var usuario = await fetchQuery(URL_SERVER+'/Afiliado?jwt='+req.query.jwt+'&codigo='+req.query.codigo+'&password='+req.query.password, 'GET').then()
+  var usuario = await fetchQuery(URL_OFICINA+'/Afiliado?jwt='+req.query.jwt+'&codigo='+req.query.codigo+'&password='+req.query.password, 'GET').then()
   .catch(function (err) {
     console.log(err.status, err.statusText)
     res.render('login.html',{ title: 'Subasta Online', message: err.status + ' ' + err.statusText});
   });
 
-  var vehiculos = await fetchQuery(URL_SERVER+'/Vehiculo', 'GET').then()
+  var vehiculos = await fetchQuery(URL_ASEGURADORA+'/Vehiculo', 'GET').then()
   .catch(function (err) {
     console.log(err.status, err.statusText)
     res.render('login.html',{ title: 'Subasta Online', message: err.status + ' ' + err.statusText});
@@ -94,6 +114,7 @@ router.get('/Afiliado', async (req,res) => {
     } 
   }
 });
+
 
 
 
@@ -163,6 +184,38 @@ Vehiculo
 ------------------------------------------------------------------------------------2. Foto GET para obtener fotos
 ------------------------------------------------------------------------------------3. Estado GET ???????
 ------------------------------------------------------------------------------------4. Vehiculo PUT para actualizar
+
+
+
+
+
+
+
+------------------------------------------------------------------------------------1. TOKEN
+router.post('/Token', async (req,res) => {
+// URL: http://3.94.79.29:8000/getToken/
+// client_id: giovannilopez
+// client_secret: miacceso123
+//http://3.94.79.29:8000/getToken/?client_id=giovannilopez?password=miacceso123
+//Tambien pueden entrar al admin: 
+// http://3.94.79.29:8000/admin/
+//Para poder explorar el JWT lo pueden hacer a traves de:
+//https://www.jsonwebtoken.io/      Con la llave: SA@2020
+  var body = {
+    client_id: 'giovannilopez', 
+    client_secret: 'miacceso123'
+  }
+  var token = await fetchQuery(URL_TOKEN+'/getToken/','POST', body).then()
+  .catch(function(err){
+    console.log(err.status, err.statusText)
+  });
+    console.log(token)
+});
+
+
+
+
+
 
 */
 

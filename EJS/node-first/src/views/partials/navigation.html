@@ -8,18 +8,21 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="/"><i class="fas fa-home"></i> Home </a>
+                    <a class="nav-link" href="#"><i class="fas fa-home"></i> Home </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/Prueba"><i class="fas fa-car"></i> Subasta </a>
+                    <a class="nav-link" href="#"><i class="fas fa-car"></i> Subasta </a>
                 </li>
-                <% if(data==null || data==''){ %>
+                <% if(data==null || data==''){ %><!-- DESLOGEADO -->
                 <li class="nav-item">
-                    <a class="nav-link" href="/logear"><i class="fas fa-user"></i> Login </a>
+                    <a class="nav-link" href="/logear"><i class="fas fa-user"></i> Sign in </a>
                 </li>
-                <% }else{ %>
+                <li class="nav-item">
+                    <a class="nav-link" href="/signup"><i class="fas fa-user-plus"></i></i> Sign Up </a>
+                </li>
+                <% }else{ %><!-- LOGEADO -->
                     <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="fas fa-user"></i> <%- data %></a>
+                        <a class="nav-link" href="/perfil"><i class="fas fa-user"></i> <%- data %></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/logout"><i class="fas fa-sign-out-alt"></i> Salir </a>

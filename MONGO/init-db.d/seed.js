@@ -124,11 +124,9 @@ db.vehiculo.insertMany([
 db.createCollection('usuario')
 db.usuario.insertMany([
   {
-    email: 'haldamir.95@gmail.com',
-    password: 123456
-  },
-  {
-    email: 'pedro@gmail.com',
-    password: 123456
+    id: 1,
+    codigo: 666,
+    password: '123',
+    nombre: 'Alan Guzman'
   }
 ])

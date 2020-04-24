@@ -18,13 +18,14 @@ app.use((req, res, next) => {
      // Initialise our variables on the session object (that's persisted across requests by the same user
      req.session.initialised = true;
      req.session.sessUsr = '';
+     req.session.sessCod = '';
   }
   next();
 });
 
 
 //routes
-app.use(require('./routes/routes.js'));
+app.use(require('./routes/web.js'));
 
 //static files 
 app.use(express.static(path.join(__dirname, 'public')));
