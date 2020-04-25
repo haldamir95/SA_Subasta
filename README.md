@@ -27,6 +27,9 @@ ir a el documento donde estan las llaves y abrirlo en la terminal
     $ ssh -i <nombre_llaves> <nombre SSH de metadatos>@<IP de la maquina virtual>    
     $ ssh -i llaves haldamir.95@34.69.242.48
 
+Tener instalado Docker, agregar el usuario al grupo de docker
+    $docker run hello-world
+
 Con la maquina virtual en nuestra terminal, creamos el archivo deploy_app.sh
     Ejemplo del archivo a la par de esta guia
 
