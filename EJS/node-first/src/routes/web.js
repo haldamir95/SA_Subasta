@@ -31,7 +31,7 @@ router.get('/', async (req,res) => {
     //     }
     // }).catch(function (err) {
     //     console.log(err.status, err.statusText)
-    // }); 
+    // }); //cambio
 
     res.render('login.html',{ title: 'Subasta Online', message: ''});
 });
