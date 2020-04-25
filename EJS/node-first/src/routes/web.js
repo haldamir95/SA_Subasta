@@ -24,6 +24,7 @@ router.get('/', async (req,res) => {
     //Obteniendo Todos los vehiculos
     fetchQuery(URL_ASEGURADORA+'/Vehiculo?jwt='+token.token, 'GET').then(res_be => {
         if (res_be!=null) {
+            console.log(res_be)
             res.render('./tech-blog/subasta.html',{ title: 'Subasta Online', carros:res_be, usr:req.session.sessUsr});
         } else {
             console.log('res_back_end not soccess')
