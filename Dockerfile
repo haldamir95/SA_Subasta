@@ -1,6 +1,6 @@
 FROM node
 
-WORKDIR ./EJS/node-first/
+WORKDIR node-first/
 
 COPY . .
 RUN npm install
