@@ -3,7 +3,7 @@ const request = require('request');
 const router = express.Router();
 const fetchQuery = require('../request-manager');
 const URL_OFICINA = 'http://127.0.0.1:4000'
-const URL_ASEGURADORA = 'http://127.0.0.1:4000'      //        'http://34.214.230.10:4000'
+const URL_ASEGURADORA = 'http://34.70.210.93'      //http://127.0.0.1:4000        'http://34.214.230.10:4000'
 const URL_TOKEN = 'http://3.94.79.29:8000'
 const app = express();
 
