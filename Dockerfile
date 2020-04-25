@@ -1,10 +1,7 @@
 FROM node
-
-WORKDIR node-first/
-
-COPY . .
+COPY node-first node-first/ 
+WORKDIR /node-first
 RUN npm install
-
+RUN npm install -G nodemon
 EXPOSE 3000
-
-CMD ["node", "src/index.js"]
+CMD ["npm", "start"]
