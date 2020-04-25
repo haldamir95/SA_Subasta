@@ -1,6 +1,6 @@
 FROM node
 
-WORKDIR node-first/
+WORKDIR /app
 
 COPY . .
 RUN npm install
