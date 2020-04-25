@@ -1,10 +1,6 @@
 FROM node
-
-WORKDIR /app
-
-COPY . .
+COPY node-first node-first/ 
+WORKDIR /node-first
 RUN npm install
-
 EXPOSE 3000
-
 CMD ["npm", "start"]
