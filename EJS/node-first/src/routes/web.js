@@ -11,27 +11,29 @@ const app = express();
 
 //------------------------------------------ INICIAL
 router.get('/', async (req,res) => {
-    //Obteniendo Token
-    var credenciales = {
-        client_id: 'giovannilopez', 
-        client_secret: 'miacceso123'
-    }
-    var token = await fetchQuery(URL_TOKEN+'/getToken/','POST', credenciales).then()
-    .catch(function(err){
-        console.log(err.status, err.statusText)
-    });
+    // //Obteniendo Token
+    // var credenciales = {
+    //     client_id: 'giovannilopez', 
+    //     client_secret: 'miacceso123'
+    // }
+    // var token = await fetchQuery(URL_TOKEN+'/getToken/','POST', credenciales).then()
+    // .catch(function(err){
+    //     console.log(err.status, err.statusText)
+    // });
 
-    //Obteniendo Todos los vehiculos
-    fetchQuery(URL_ASEGURADORA+'/Vehiculo?jwt='+token.token, 'GET').then(res_be => {
-        if (res_be!=null) {
-            console.log(res_be)
-            res.render('./tech-blog/subasta.html',{ title: 'Subasta Online', carros:res_be, usr:req.session.sessUsr});
-        } else {
-            console.log('res_back_end not soccess')
-        }
-    }).catch(function (err) {
-        console.log(err.status, err.statusText)
-    }); 
+    // //Obteniendo Todos los vehiculos
+    // fetchQuery(URL_ASEGURADORA+'/Vehiculo?jwt='+token.token, 'GET').then(res_be => {
+    //     if (res_be!=null) {
+    //         console.log(res_be)
+    //         res.render('./tech-blog/subasta.html',{ title: 'Subasta Online', carros:res_be, usr:req.session.sessUsr});
+    //     } else {
+    //         console.log('res_back_end not soccess')
+    //     }
+    // }).catch(function (err) {
+    //     console.log(err.status, err.statusText)
+    // }); 
+
+    res.render('login.html',{ title: 'Subasta Online', message: ''});
 });
 //-----------------------------------------------------------------------------------------------------------------------
 
