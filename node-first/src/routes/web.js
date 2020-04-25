@@ -191,7 +191,7 @@ router.get('/Afiliado', async (req,res) => {
         console.log(err.status, err.statusText)
         res.render('login.html',{ title: 'Subasta Online', message: err.status + ' ' + err.statusText});
     });
-
+    console.log('USUARIO ',usuario)
 
     //Obteniendo Token 2
     var token2 = await fetchQuery(URL_TOKEN+'/getToken/','POST', credenciales).then()
@@ -210,18 +210,14 @@ router.get('/Afiliado', async (req,res) => {
 
     //Validacion de respuestas
     if(usuario!=null){
-        if (usuario.status=='OK') {
-            if(usuario.vigente){
-                req.session.sessUsr = usuario.nombre
-                req.session.sessCod = usuario.codigo
-                console.log('Afiliado -> ',usuario)
-                res.render('./tech-blog/subasta.html',{ title: 'Subasta Online', carros:vehiculos, usr:req.session.sessUsr});
-            }else{
-            res.render('login.html',{ title: 'Subasta Online', message: 'Su usuario NO esta vigente'});
-            }
-        } else {
-            console.log('res not success')
-        } 
+        if(usuario.vigente){
+            req.session.sessUsr = usuario.nombre
+            req.session.sessCod = usuario.codigo
+            console.log('Afiliado -> ',usuario)
+            res.render('./tech-blog/subasta.html',{ title: 'Subasta Online', carros:vehiculos, usr:req.session.sessUsr});
+        }else{
+        res.render('login.html',{ title: 'Subasta Online', message: 'Su usuario NO esta vigente'});
+        }
     }
 });
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------
