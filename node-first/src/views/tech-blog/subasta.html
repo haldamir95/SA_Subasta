@@ -70,12 +70,19 @@
                                                     <% if(carr.estado==3){ %><!-- **************************************** SI ES SUBASTABLE -->
 
 
-                                                        <!-- IMAGEN -->
-                                                        <div class="post-media">
-                                                            <a href="#" title="">
-                                                                <img src="<%- carr.imagen %>" alt="" class="img-fluid animated bounceIn">
-                                                            </a>
-                                                        </div>
+                                                         <!-- IMAGEN -->
+                                                        <% album.forEach(function(foto) { %>
+                                                            <% if(foto.id_vehiculo==carr.id){ %>
+                                                                
+                                                                <div class="post-media">
+                                                                    <a href="#" title="">
+                                                                        <img src="<%- foto.url %>" alt="" class="img-fluid animated bounceIn">
+                                                                    </a>
+                                                                </div>
+                                                            <% } %>
+                                                        <% }) %>
+                                                         
+                                                        
         
 
                                                         <!-- DATA -->
@@ -96,8 +103,12 @@
 
 
                                                             <!-- PRECIO -->
-                                                            <h4><p> VALOR ACTUAL: Q. <%- carr.valor_adjudicacion %>
+                                                            <h4><p> VALOR ACTUAL: Q. <%- carr.precio_base %>
                                                             </p></h4>
+                                                            <h4><p> MINIMO REQUERIDO: Q. <%- carr.minimo_requerido %>
+                                                            </p></h4>
+                                                            <h5><p> AFILIADO ADJUDICADO: <%- carr.afiliado_adjudicado %>
+                                                            </p></h5>
 
 
                                                             <!-- INFORMACION EXTRA -->
@@ -142,11 +153,15 @@
     
 
                                                         <!-- IMAGEN -->
-                                                        <div class="post-media">
-                                                            <a href="#" title="">
-                                                                <img src="<%- carr.imagen %>" alt="" class="img-fluid animated bounceIn">
-                                                            </a>
-                                                        </div>
+                                                        <% album.forEach(function(foto) { %>
+                                                            <% if(foto.id_vehiculo==carr.id){ %>
+                                                                <div class="post-media">
+                                                                    <a href="#" title="">
+                                                                        <img src="<%- foto.url %>" alt="" class="img-fluid animated bounceIn">
+                                                                    </a>
+                                                                </div>
+                                                            <% } %>
+                                                        <% }) %>
         
 
                                                         <!-- DATA -->
@@ -158,10 +173,11 @@
                                                                 <div class="row">
                                                                     <div class="col-sm-3"> 
                                                                         <form action="/Vehiculoput" method="POST">
-                                                                            <input type="hidden" name="jwt" value="AsE445RdwERE">
                                                                             <input type="hidden" name="id" value="<%- carr.id  %>">
                                                                             <input type="hidden" name="email" value="<%- usr  %>">
                                                                             <input type="hidden" name="tipo" value="C">
+                                                                            <input type="hidden" name="minimo" value="<%- carr.minimo_requerido %>">
+                                                                            <input type="hidden" name="base" value="<%- carr.precio_base %>">
                                                                             <button type="submit" class="btn btn-success">
                                                                                 <i class="fas fa-thumbs-up"></i>+1000
                                                                             </button>
@@ -172,6 +188,8 @@
                                                                             <input type="hidden" name="id" value="<%- carr.id  %>">
                                                                             <input type="hidden" name="email" value="<%- usr  %>">
                                                                             <input type="hidden" name="tipo" value="M">
+                                                                            <input type="hidden" name="minimo" value="<%- carr.minimo_requerido %>">
+                                                                            <input type="hidden" name="base" value="<%- carr.precio_base %>">
                                                                             <button type="submit" class="btn btn-success"><!-- onclick="location.href='/puja?t=M&v=<%- carr.id  %></button>'" -->
                                                                                 <i class="far fa-hand-point-up"></i>+500
                                                                             </button>
@@ -187,7 +205,9 @@
 
 
                                                             <!-- PRECIO Y AFILIADO-->
-                                                            <h4><p> VALOR ACTUAL: Q. <%- carr.valor_adjudicacion %>
+                                                            <h4><p> VALOR ACTUAL: Q. <%- carr.precio_base %>
+                                                            </p></h4>
+                                                            <h4><p> MINIMO REQUERIDO: Q. <%- carr.minimo_requerido %>
                                                             </p></h4>
                                                             <h5><p> AFILIADO ADJUDICADO: <%- carr.afiliado_adjudicado %>
                                                             </p></h5>
@@ -242,11 +262,11 @@
     </div><!-- end wrapper -->
 
     <!-- Core JavaScript
-    ================================================== -->
+    ================================================== 
     <script src="js/jquery.min.js"></script>
     <script src="js/tether.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
-    <script src="js/custom.js"></script>
+    <script src="js/custom.js"></script>-->
     <script>
         function Mensaje(){
             alert('Autenticate para poder hacer pujas')
